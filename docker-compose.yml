@@ -1,0 +1,39 @@
+version: '3.1'
+services:
+  web:
+    image: odoo:15.0
+    container_name: fshahy_odoo_15
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+      - ./config:/etc/odoo
+      - /home/farid/github/enterprise:/mnt/extra-addons
+      - ./external_addons:/mnt/external_addons
+  db:
+    image: postgres:12
+    container_name: fshahy_postgres_12
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data/pgdata
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: fshahy_pgadmin4
+    restart: always
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@fshahy.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin-data:/var/lib/pgadmi
+volumes:
+  odoo-web-data:
+  odoo-db-data:
+  pgadmin-data:
