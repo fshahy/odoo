@@ -1,8 +1,8 @@
 version: '3.1'
 services:
   web:
-    image: odoo:15.0
-    container_name: fshahy_odoo_15
+    image: odoo:17.0
+    container_name: fshahy_odoo17
     depends_on:
       - db
     ports:
@@ -13,8 +13,8 @@ services:
       - /home/farid/github/enterprise:/mnt/extra-addons
       - ./external_addons:/mnt/external_addons
   db:
-    image: postgres:12
-    container_name: fshahy_postgres_12
+    image: postgres:14
+    container_name: fshahy_postgres_odoo17
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_PASSWORD=odoo
@@ -24,7 +24,7 @@ services:
       - odoo-db-data:/var/lib/postgresql/data/pgdata
   pgadmin:
     image: dpage/pgadmin4
-    container_name: fshahy_pgadmin4
+    container_name: fshahy_pgadmin4_odoo17
     restart: always
     ports:
       - "8888:80"
